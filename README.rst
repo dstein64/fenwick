@@ -13,8 +13,6 @@ Requirements
 
 Linux, Mac, and Windows are supported.
 
-Other operating systems may be compatible if NumPy can be properly installed.
-
 Installation
 ------------
 
