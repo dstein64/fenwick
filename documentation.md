@@ -68,3 +68,9 @@ in O(log n).
 An individual frequency can be accessed in O(log n).
 
     >>> freq_10 = fenwick_tree[10]
+
+The *frequencies* method retrieves a list of all frequencies in O(n). This
+is more efficient than retrieving each individual frequency separately, which
+would be O(n log n).
+
+    >>> freqs = fenwick_tree.frequencies()

@@ -2,7 +2,7 @@ from __future__ import print_function
 
 from fenwick import FenwickTree
 
-n = 100
+n = 10
 
 print('Note: Indexing is 0-based.')
 print()
@@ -39,19 +39,27 @@ print()
 
 print('*******************************************')
 print('* Calculate and print sum of frequencies   ')
-print('* 10 through 20.                           ')
+print('* 2 through 8.                           ')
 print('*******************************************')
 print()
 
-sum_10_20 = fenwick_tree.range_sum(10, 21)
-print(sum_10_20)
+sum_2_8 = fenwick_tree.range_sum(2, 9)
+print(sum_2_8)
 print()
 
 print('*******************************************')
-print('* Calculate and print frequencies 30       ')
-print('* through 35.                              ')
+print('* Calculate and print frequencies 5       ')
+print('* through 9.                              ')
 print('*******************************************')
 print()
 
-for x in range(30, 36):
+for x in range(5, 10):
     print(fenwick_tree[x])
+print()
+
+print('*******************************************')
+print('* Retrieve and print all frequencies.      ')
+print('*******************************************')
+print()
+
+print(fenwick_tree.frequencies())

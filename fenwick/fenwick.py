@@ -69,6 +69,16 @@ class FenwickTree(object):
     def __getitem__(self, idx):
         return self.range_sum(idx, idx + 1)
 
+    def frequencies(self):
+        """ Retrieves all frequencies in O(n). """
+        _frequencies = [0] * self._n
+        for idx in _range(1, self._n + 1):
+            _frequencies[idx - 1] += self._v[idx - 1]
+            parent_idx = idx + (idx & -idx)
+            if parent_idx <= self._n:
+                _frequencies[parent_idx - 1] -= self._v[idx - 1]
+        return _frequencies
+
     def add(self, idx, k):
         """ Adds k to idx'th element (0-based indexing). """
         if idx < 0 or idx >= self._n:
@@ -77,6 +87,11 @@ class FenwickTree(object):
         while idx <= self._n:
             self._v[idx - 1] += k
             idx += idx & -idx
+
+    def __setitem__(self, idx, value):
+        # It's more efficient to use add directly, as opposed to
+        # __setitem__, since the latter calls __getitem__.
+        self.add(idx, value - self[idx])
 
     def init(self, frequencies):
         """ Initialize in O(n) with specified frequencies. """
