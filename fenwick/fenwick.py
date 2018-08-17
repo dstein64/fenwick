@@ -12,7 +12,7 @@ with open(version_txt, 'r') as f:
 # ************************************************************
 
 _major_version = sys.version_info.major
-if _major_version not in (2, 3):
+if _major_version < 2:
     raise RuntimeError("Unsupported version of Python: {}".format(_major_version))
 
 

@@ -1,5 +1,5 @@
 import os
-from distutils.core import setup
+from setuptools import setup
 
 version_txt = os.path.join(os.path.dirname(__file__), 'fenwick', 'version.txt')
 with open(version_txt, 'r') as f:
