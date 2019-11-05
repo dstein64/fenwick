@@ -103,3 +103,8 @@ class FenwickTree(object):
             parent_idx = idx + (idx & -idx) # parent in update tree
             if parent_idx <= self._n:
                 self._v[parent_idx - 1] += self._v[idx - 1]
+
+    def __eq__(self, other):
+        if not isinstance(other, FenwickTree):
+            return False
+        return self._n == other._n and self._v == other._v

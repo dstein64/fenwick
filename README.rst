@@ -1,3 +1,9 @@
+.. image:: https://travis-ci.org/dstein64/fenwick.svg?branch=master
+    :target: https://travis-ci.org/dstein64/fenwick
+
+fenwick
+=======
+
 A Python library that implements Fenwick trees, based on the algorithm in
 (Fenwick 1994).
 
@@ -34,6 +40,16 @@ Example Usage
 -------------
 
 See `example.py <https://github.com/dstein64/fenwick/blob/master/example.py>`__.
+
+Tests
+-----
+
+Tests are in `tests/ <https://github.com/dstein64/fenwick/blob/master/tests>`__.
+
+::
+
+    # Run tests
+    $ python -m unittest discover tests -v
 
 License
 -------
