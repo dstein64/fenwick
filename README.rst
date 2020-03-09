@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/dstein64/fenwick.svg?branch=master
-    :target: https://travis-ci.org/dstein64/fenwick
+.. image:: https://github.com/dstein64/fenwick/workflows/build/badge.svg
+    :target: https://github.com/dstein64/fenwick/actions
 
 fenwick
 =======
