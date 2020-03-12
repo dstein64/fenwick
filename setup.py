@@ -1,3 +1,4 @@
+import io
 import os
 from setuptools import setup
 
@@ -12,7 +13,7 @@ setup(
     license='MIT',
     version=version,
     description='A Python implementation of Fenwick trees',
-    long_description=open('README.rst').read(),
+    long_description=io.open('README.rst', encoding='utf8').read(),
     author='Daniel Steinberg',
     author_email='ds@dannyadam.com',
     url='https://github.com/dstein64/fenwick',
