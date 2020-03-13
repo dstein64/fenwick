@@ -10,10 +10,10 @@ A Python library that implements Fenwick trees, based on the algorithm in
 Features
 --------
 
-- Update a frequency in O(log n).
-- Retrieve a single frequency in O(log n).
-- Initialize existing frequencies in O(n).
-- Retrieve all frequencies in O(n).
+- Update a frequency in ``O(log n)``.
+- Retrieve a single frequency in ``O(log n)``.
+- Initialize existing frequencies in ``O(n)``.
+- Retrieve all frequencies in ``O(n)``.
 
 Requirements
 ------------
