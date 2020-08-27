@@ -6,6 +6,9 @@ version_txt = os.path.join(os.path.dirname(__file__), 'fenwick', 'version.txt')
 with open(version_txt, 'r') as f:
     version = f.read().strip()
 
+with io.open('README.rst', encoding='utf8') as f:
+    long_description = f.read()
+
 setup(
     name='fenwick',
     packages=['fenwick'],
@@ -13,7 +16,7 @@ setup(
     license='MIT',
     version=version,
     description='A Python implementation of Fenwick trees',
-    long_description=io.open('README.rst', encoding='utf8').read(),
+    long_description=long_description,
     author='Daniel Steinberg',
     author_email='ds@dannyadam.com',
     url='https://github.com/dstein64/fenwick',
