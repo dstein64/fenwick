@@ -46,7 +46,7 @@ class FenwickTree(object):
         return self._n
 
     def prefix_sum(self, stop):
-        """ Returns sum of first elements (sum upto *stop*, exclusive). """
+        """ Returns sum of first elements (sum up to *stop*, exclusive). """
         if stop <= 0 or stop > self._n:
             raise IndexError()
         _sum = 0
