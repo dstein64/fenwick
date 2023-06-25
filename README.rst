@@ -18,7 +18,7 @@ Features
 Requirements
 ------------
 
-*fenwick* supports Python 2.7 and Python 3.x.
+*fenwick* supports ``python>=3.5``.
 
 Linux, Mac, and Windows are supported.
 
