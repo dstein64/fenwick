@@ -17,6 +17,7 @@ if _major_version < 3:
 # * Core
 # ************************************************************
 
+
 class FenwickTree(object):
     """
     A data structure for maintaining cumulative (prefix) sums.
@@ -88,7 +89,7 @@ class FenwickTree(object):
             raise ValueError("Length of frequencies must match length of FenwickTree.")
         self._v = list(frequencies)
         for idx in range(1, self._n + 1):
-            parent_idx = idx + (idx & -idx) # parent in update tree
+            parent_idx = idx + (idx & -idx)  # parent in update tree
             if parent_idx <= self._n:
                 self._v[parent_idx - 1] += self._v[idx - 1]
 
