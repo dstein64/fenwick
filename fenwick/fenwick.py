@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import os
 import sys
 
@@ -12,17 +10,8 @@ with open(version_txt, 'r') as f:
 # ************************************************************
 
 _major_version = sys.version_info.major
-if _major_version < 2:
+if _major_version < 3:
     raise RuntimeError("Unsupported version of Python: {}".format(_major_version))
-
-
-def _range(*args, **kwargs):
-    if _major_version == 2:
-        import __builtin__
-        return __builtin__.xrange(*args, **kwargs)
-    else:
-        import builtins
-        return builtins.range(*args, **kwargs)
 
 # ************************************************************
 # * Core
@@ -72,7 +61,7 @@ class FenwickTree(object):
     def frequencies(self):
         """Retrieves all frequencies in O(n)."""
         _frequencies = [0] * self._n
-        for idx in _range(1, self._n + 1):
+        for idx in range(1, self._n + 1):
             _frequencies[idx - 1] += self._v[idx - 1]
             parent_idx = idx + (idx & -idx)
             if parent_idx <= self._n:
@@ -98,7 +87,7 @@ class FenwickTree(object):
         if len(frequencies) != self._n:
             raise ValueError("Length of frequencies must match length of FenwickTree.")
         self._v = list(frequencies)
-        for idx in _range(1, self._n + 1):
+        for idx in range(1, self._n + 1):
             parent_idx = idx + (idx & -idx) # parent in update tree
             if parent_idx <= self._n:
                 self._v[parent_idx - 1] += self._v[idx - 1]
