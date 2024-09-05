@@ -96,9 +96,8 @@ class FenwickTree(object):
     def init(self, frequencies):
         """Initialize in O(n) with specified frequencies."""
         if len(frequencies) != self._n:
-            raise ValueError("Number of frequencies must match size of tree.")
-        for idx in _range(self._n):
-            self._v[idx] = frequencies[idx]
+            raise ValueError("Length of frequencies must match length of FenwickTree.")
+        self._v = list(frequencies)
         for idx in _range(1, self._n + 1):
             parent_idx = idx + (idx & -idx) # parent in update tree
             if parent_idx <= self._n:
