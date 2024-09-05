@@ -38,7 +38,7 @@ class FenwickTree(object):
     sum, and is thus O(log n).
     """
     def __init__(self, n):
-        """ Initializes n frequencies to zero. """
+        """Initializes n frequencies to zero."""
         self._n = n
         self._v = [0] * n
 
@@ -46,9 +46,9 @@ class FenwickTree(object):
         return self._n
 
     def prefix_sum(self, stop):
-        """ Returns sum of first elements (sum up to *stop*, exclusive). """
+        """Returns sum of first elements (sum up to *stop*, exclusive)."""
         if stop <= 0 or stop > self._n:
-            raise IndexError()
+            raise IndexError("index out of range")
         _sum = 0
         while stop > 0:
             _sum += self._v[stop - 1]
@@ -56,11 +56,11 @@ class FenwickTree(object):
         return _sum
 
     def range_sum(self, start, stop):
-        """ Returns sum from start (inclusive) to stop (exclusive). """
+        """Returns sum from start (inclusive) to stop (exclusive)."""
         if start < 0 or start >= self._n:
-            raise IndexError()
+            raise IndexError("index out of range")
         if stop <= start or stop > self._n:
-            raise IndexError()
+            raise IndexError("index out of range")
         result = self.prefix_sum(stop)
         if start > 0:
             result -= self.prefix_sum(start)
@@ -70,7 +70,7 @@ class FenwickTree(object):
         return self.range_sum(idx, idx + 1)
 
     def frequencies(self):
-        """ Retrieves all frequencies in O(n). """
+        """Retrieves all frequencies in O(n)."""
         _frequencies = [0] * self._n
         for idx in _range(1, self._n + 1):
             _frequencies[idx - 1] += self._v[idx - 1]
@@ -80,9 +80,9 @@ class FenwickTree(object):
         return _frequencies
 
     def add(self, idx, k):
-        """ Adds k to idx'th element (0-based indexing). """
+        """Adds k to idx'th element (0-based indexing)."""
         if idx < 0 or idx >= self._n:
-            raise IndexError()
+            raise IndexError("index out of range")
         idx += 1
         while idx <= self._n:
             self._v[idx - 1] += k
@@ -94,9 +94,9 @@ class FenwickTree(object):
         self.add(idx, value - self[idx])
 
     def init(self, frequencies):
-        """ Initialize in O(n) with specified frequencies. """
+        """Initialize in O(n) with specified frequencies."""
         if len(frequencies) != self._n:
-            raise ValueError()
+            raise ValueError("Number of frequencies must match size of tree.")
         for idx in _range(self._n):
             self._v[idx] = frequencies[idx]
         for idx in _range(1, self._n + 1):
