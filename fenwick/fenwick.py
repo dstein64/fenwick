@@ -38,7 +38,7 @@ class FenwickTree(object):
     def prefix_sum(self, stop):
         """Returns sum of first elements (sum up to *stop*, exclusive)."""
         if stop <= 0 or stop > self._n:
-            raise IndexError("index out of range")
+            raise IndexError()
         _sum = 0
         while stop > 0:
             _sum += self._v[stop - 1]
@@ -48,9 +48,9 @@ class FenwickTree(object):
     def range_sum(self, start, stop):
         """Returns sum from start (inclusive) to stop (exclusive)."""
         if start < 0 or start >= self._n:
-            raise IndexError("index out of range")
+            raise IndexError()
         if stop <= start or stop > self._n:
-            raise IndexError("index out of range")
+            raise IndexError()
         result = self.prefix_sum(stop)
         if start > 0:
             result -= self.prefix_sum(start)
@@ -72,7 +72,7 @@ class FenwickTree(object):
     def add(self, idx, k):
         """Adds k to idx'th element (0-based indexing)."""
         if idx < 0 or idx >= self._n:
-            raise IndexError("index out of range")
+            raise IndexError()
         idx += 1
         while idx <= self._n:
             self._v[idx - 1] += k
@@ -85,9 +85,10 @@ class FenwickTree(object):
 
     def init(self, frequencies):
         """Initialize in O(n) with specified frequencies."""
-        if len(frequencies) != self._n:
-            raise ValueError("Length of frequencies must match length of FenwickTree.")
-        self._v = list(frequencies)
+        n = len(frequencies)
+        if n != self._n:
+            raise ValueError(f'length of frequencies ({n}) does not match length of FenwickTree ({self._n})')
+        self._v[:] = frequencies
         for idx in range(1, self._n + 1):
             parent_idx = idx + (idx & -idx)  # parent in update tree
             if parent_idx <= self._n:
