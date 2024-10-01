@@ -48,16 +48,15 @@ class TestFenwick(unittest.TestCase):
         
         # Create a cumulative sum
         cumsum = list(itertools.accumulate(frequencies))
-        test_values = [-5, 0.5, 1, 2, 3, 7]
         
+        # Test at some random values, including edge cases
+        test_values = [-5, 0.5, 1, 2, 3, 7]
         for test_value in test_values:
-            # Indexing the FenwickTree
             index_fenwick = tree.bisect_right(test_value)
             index_bisect = bisect.bisect_right(cumsum, test_value)
             self.assertEqual(index_fenwick, index_bisect)
-            
-            
-        # Test a specific edge case. The cumsums are [1, 3, 6], and the 
+
+        # Test a specific case. The cumsums are [1, 3, 6], and the 
         # smallest index i such that cumsum[i] > 3 is 2.
         self.assertEqual(tree.bisect_right(3), 2)
 
