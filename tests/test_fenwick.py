@@ -1,4 +1,6 @@
 import unittest
+import itertools
+import bisect
 
 from fenwick import FenwickTree
 
@@ -34,6 +36,30 @@ class TestFenwick(unittest.TestCase):
             self.assertEqual(fenwick_tree_1[idx], frequencies[idx])
 
         self.assertEqual(fenwick_tree_0, fenwick_tree_1)
+        
+        
+    def test_bisect_left(self):
+        
+        # Create a Fenwick tree
+        frequencies = [1, 2, 3]
+        n = len(frequencies)
+        tree = FenwickTree(n)
+        tree.init(frequencies)
+        
+        # Create a cumulative sum
+        cumsum = list(itertools.accumulate(frequencies))
+        test_values = [-5, 0.5, 1, 2, 3, 7]
+        
+        for test_value in test_values:
+            # Indexing the FenwickTree
+            index_fenwick = tree.bisect_right(test_value)
+            index_bisect = bisect.bisect_right(cumsum, test_value)
+            self.assertEqual(index_fenwick, index_bisect)
+            
+            
+        # Test a specific edge case. The cumsums are [1, 3, 6], and the 
+        # smallest index i such that cumsum[i] > 3 is 2.
+        self.assertEqual(tree.bisect_right(3), 2)
 
 
 if __name__ == '__main__':

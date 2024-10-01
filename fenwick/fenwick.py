@@ -93,6 +93,18 @@ class FenwickTree(object):
             parent_idx = idx + (idx & -idx)  # parent in update tree
             if parent_idx <= self._n:
                 self._v[parent_idx - 1] += self._v[idx - 1]
+                
+    def bisect_right(self, value):
+        """Returns the smallest index i such that the cumulative sum up to i is > value."""
+        # https://stackoverflow.com/questions/34699616/fenwick-trees-to-determine-which-interval-a-point-falls-in
+        j = 2 ** len(self)
+        idx = -1
+        while j > 0:
+            if idx + j < len(self) and value >= self._v[idx + j]:
+                value -= self._v[idx + j]
+                idx += j
+            j >>= 1
+        return idx + 1
 
     def __eq__(self, other):
         return isinstance(other, FenwickTree) and self._n == other._n and self._v == other._v
