@@ -77,9 +77,9 @@ would be O(n log n).
 
 ### Stop Index
 
-The *find_stop* method returns the smallest stop for which `prefix_sum(stop) >= value`,
-or -1 if there is no stop that would satisfy the condition. The time complexity
-is O(log n).
+For a specified value, the *find_stop* method returns the smallest stop for
+which `prefix_sum(stop) >= value`, or -1 if there is no stop that would satisfy
+the condition. The time complexity is O(log n).
 
     >>> stop = fenwick_tree.find_stop(20)
 
