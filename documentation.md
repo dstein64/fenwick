@@ -74,3 +74,16 @@ is more efficient than retrieving each individual frequency separately, which
 would be O(n log n).
 
     >>> freqs = fenwick_tree.frequencies()
+
+### Stop Index
+
+The *find_stop* method returns the smallest stop for which `prefix_sum(stop) >= value`,
+or -1 if there is no stop that would satisfy the condition. The time complexity
+is O(log n).
+
+    >>> stop = fenwick_tree.find_stop(20)
+
+*fenwick.FenwickTree.find_stop* takes the following arguments:
+
+* **value** The threshold.
+* **strict** (optional) When True, the condition changes to `prefix_sum(stop) > value`.

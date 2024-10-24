@@ -1,3 +1,4 @@
+import operator
 import os
 import sys
 
@@ -44,6 +45,25 @@ class FenwickTree(object):
             _sum += self._v[stop - 1]
             stop &= stop - 1
         return _sum
+
+    def find_stop(self, value, strict=False):
+        """
+        Returns the smallest stop for which prefix_sum(stop) >= value, or -1 if
+        there is no stop that would satisfy the condition. When strict is True,
+        the condition changes to prefix_sum(stop) > value.
+        """
+        # Algorithm from https://stackoverflow.com/a/34701217/1509433
+        base = -1
+        # round len(self) down to a power of 2 if len(self) > 0, else round up
+        step = 1 << max(len(self).bit_length() - 1, 0)
+        compare = operator.ge if strict else operator.gt
+        while step > 0:
+            idx = base + step
+            if idx < len(self) and compare(value, self._v[idx]):
+                value -= self._v[idx]
+                base = idx
+            step >>= 1
+        return base + 2 if 0 < base + 2 <= len(self) else -1
 
     def range_sum(self, start, stop):
         """Returns sum from start (inclusive) to stop (exclusive)."""
@@ -93,18 +113,6 @@ class FenwickTree(object):
             parent_idx = idx + (idx & -idx)  # parent in update tree
             if parent_idx <= self._n:
                 self._v[parent_idx - 1] += self._v[idx - 1]
-                
-    def bisect_right(self, value):
-        """Returns the smallest index i such that the cumulative sum up to i is > value."""
-        # https://stackoverflow.com/questions/34699616/fenwick-trees-to-determine-which-interval-a-point-falls-in
-        j = 2 ** len(self)
-        idx = -1
-        while j > 0:
-            if idx + j < len(self) and value >= self._v[idx + j]:
-                value -= self._v[idx + j]
-                idx += j
-            j >>= 1
-        return idx + 1
 
     def __eq__(self, other):
         return isinstance(other, FenwickTree) and self._n == other._n and self._v == other._v

@@ -1,6 +1,5 @@
-import unittest
 import itertools
-import bisect
+import unittest
 
 from fenwick import FenwickTree
 
@@ -9,6 +8,7 @@ class TestFenwick(unittest.TestCase):
     def test_fenwick(self):
         n = 10
         frequencies = range(1, n + 1)
+        cumsum = list(itertools.accumulate(frequencies))
 
         # Test a Fenwick tree initialized with existing frequencies
         fenwick_tree_0 = FenwickTree(n)
@@ -36,29 +36,26 @@ class TestFenwick(unittest.TestCase):
             self.assertEqual(fenwick_tree_1[idx], frequencies[idx])
 
         self.assertEqual(fenwick_tree_0, fenwick_tree_1)
-        
-        
-    def test_bisect_left(self):
-        
-        # Create a Fenwick tree
-        frequencies = [1, 2, 3]
-        n = len(frequencies)
-        tree = FenwickTree(n)
-        tree.init(frequencies)
-        
-        # Create a cumulative sum
-        cumsum = list(itertools.accumulate(frequencies))
-        
-        # Test at some random values, including edge cases
-        test_values = [-5, 0.5, 1, 2, 3, 7]
-        for test_value in test_values:
-            index_fenwick = tree.bisect_right(test_value)
-            index_bisect = bisect.bisect_right(cumsum, test_value)
-            self.assertEqual(index_fenwick, index_bisect)
 
-        # Test a specific case. The cumsums are [1, 3, 6], and the 
-        # smallest index i such that cumsum[i] > 3 is 2.
-        self.assertEqual(tree.bisect_right(3), 2)
+        # Test find_stop()
+        for value in range(-50, 101):
+            stop = fenwick_tree_0.find_stop(value)
+            self.assertNotEqual(stop, 0)
+            if stop >= 1:
+                self.assertGreaterEqual(fenwick_tree_0.prefix_sum(stop), value)
+            if stop >= 2:
+                self.assertLess(fenwick_tree_0.prefix_sum(stop - 1), value)
+            if stop == -1:
+                self.assertGreater(value, cumsum[-1])
+            stop = fenwick_tree_0.find_stop(value, strict=True)
+            self.assertNotEqual(stop, 0)
+            if stop >= 1:
+                self.assertGreater(fenwick_tree_0.prefix_sum(stop), value)
+            if stop >= 2:
+                self.assertLessEqual(fenwick_tree_0.prefix_sum(stop - 1), value)
+            if stop == -1:
+                self.assertGreaterEqual(value, cumsum[-1])
+        self.assertEqual(FenwickTree(0).find_stop(10), -1)
 
 
 if __name__ == '__main__':
