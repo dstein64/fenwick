@@ -75,7 +75,7 @@ would be O(n log n).
 
     >>> freqs = fenwick_tree.frequencies()
 
-### Stop Index
+### Stop Search
 
 For a specified value, the *find_stop* method returns the smallest stop for
 which `prefix_sum(stop) >= value`, or -1 if there is no stop that would satisfy
